@@ -7,9 +7,11 @@ export default class ElevatorObj {
   protected _stoppingTime: number;
   protected _floorMoveTime: number;
   protected _currentFloor: number;
-  protected _tasks: ElevatorTask[]; //TBD
+  protected _id: number;
+  protected _tasks: ElevatorTask[];
 
-  constructor(stoppingTime,floorMoveTime,currentFloor) {
+  constructor(id,stoppingTime,floorMoveTime,currentFloor) {
+    this._id = id;
     this._stoppingTime = stoppingTime;
     this._floorMoveTime = floorMoveTime;
     this._currentFloor = currentFloor;
@@ -18,6 +20,26 @@ export default class ElevatorObj {
 
   getStoppingTime() {
     return this._stoppingTime
+  }
+
+  getId() {
+    return this._id;
+  }
+
+  setTasks(tasks: ElevatorTask[]) {
+    this._tasks = tasks;
+  }
+
+  getTasks() {
+    return this._tasks;
+  }
+
+  getDestFloor() {
+    if(this._tasks.length === 0) {
+      return this._currentFloor;
+    }
+
+    return this._tasks[this._tasks.length - 1].getDestFloor();
   }
 
   addTask(floorNumber: number) {
@@ -35,14 +57,19 @@ export default class ElevatorObj {
     return new ElevatorTask(this._stoppingTime,this._floorMoveTime,sourceFloor,destFloor);
   }
 
+  calculateCompletionTime() {
+    let completionTime = 0;
+    for(var i in this._tasks) {
+      completionTime += this._tasks[i].calculateCompletionTime();
+    }
 
-  setTasks(tasks: ElevatorTask[]) {
-    this._tasks = tasks;
+    return completionTime;
   }
 
-  getTasks() {
-    return this._tasks;
-  }
+  calculateCompletionTimeForPotentialTask(floorNumber: number) {
+    let task = this._createNewTask(floorNumber);
 
+    return this.calculateCompletionTime() + task.calculateCompletionTime();
+  }
 
 }

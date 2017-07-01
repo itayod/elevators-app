@@ -9,7 +9,7 @@ const currentFloor = 1;
 
 describe('ElevatorObj', () => {
   beforeEach(() => {
-    elevator = new ElevatorObj(stoppingTime,floorMoveTime,currentFloor);
+    elevator = new ElevatorObj(1,stoppingTime,floorMoveTime,currentFloor);
   });
 
   it('should create new elevator object with stopping time, floor move time, current floor', () => {
@@ -34,5 +34,30 @@ describe('ElevatorObj', () => {
     elevator.addTask(floorNumber);
     expect(elevator.getTasks().length).toEqual(1);
   });
+
+  it('add should return the destination floor correctly', () => {
+    expect(elevator.getDestFloor()).toEqual(currentFloor);
+    let floorNumber = 5;
+    elevator.addTask(floorNumber);
+    expect(elevator.getDestFloor()).toEqual(5);
+  });
+
+  it('should calculate the completion time correctly', () => {
+    expect(elevator.calculateCompletionTime()).toEqual(0);
+    elevator.addTask(5);
+    elevator.addTask(3);
+    let completionTime = Math.abs(currentFloor-5) * floorMoveTime + stoppingTime;
+    completionTime += Math.abs(3-5) * floorMoveTime + stoppingTime;
+    expect(elevator.calculateCompletionTime()).toEqual(completionTime);
+  });
+
+  it('should calculate the completion time + new potential task', () => {
+    elevator.addTask(5);
+    let completionTime = Math.abs(currentFloor-5) * floorMoveTime + stoppingTime;
+    completionTime += Math.abs(3-5) * floorMoveTime + stoppingTime;
+    expect(elevator.calculateCompletionTimeForPotentialTask(3)).toEqual(completionTime);
+  });
+
+
 
 });
