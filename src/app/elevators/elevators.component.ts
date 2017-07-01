@@ -1,20 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {ElevatorsService} from '../services/elevators.service';
+import ElevatorObj from '../objects/elevatorObj';
+
 @Component({
-  selector: 'app-elevators',
+  selector: 'elevators',
   templateUrl: './elevators.component.html',
   styleUrls: ['./elevators.component.scss'],
   providers: [ElevatorsService]
 })
 
 export class ElevatorsComponent implements OnInit {
-  public elevators: any[];
+  @Input() elevatorIds: any;
+
+  // @Input() set elevatorsList(val) {
+  //   console.log(val);
+  // }
 
   constructor(protected elevatorsService: ElevatorsService) {
-    this.elevators = this.elevatorsService.getElevators();
   }
 
   ngOnInit() {
+    // this.elevatorsList = this.elevatorsService.getElevators();
   }
 
 }

@@ -1,3 +1,8 @@
 <p>
   elevators works!
 </p>
+<ul>
+  <li *ngFor="let elevatorId of elevatorIds">
+    <elevator id="{{elevatorId}}"></elevator>
+  </li>
+</ul>
