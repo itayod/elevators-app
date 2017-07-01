@@ -6,6 +6,7 @@
   <elevators [elevatorIds]="elevatorIds">
   </elevators>
   <button (click)="addElevator()" >addElevator</button>
+  <app-floors (floorSelected)="onFloorSelected($event)"></app-floors>
 
 </div>
 

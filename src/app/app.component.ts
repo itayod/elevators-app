@@ -23,7 +23,11 @@ export class AppComponent {
 
   addElevator() {
     let elevator = this.elevatorsService.addElevator(this._maxElevatorId++,this._defaultTimeBetweenFloors,this._defaultStoppingTimeAtFloor,this._defaultCurrentFloor);
-    this.elevatorIds.push(elevator.getId())// = this.elevatorsService.getElevators();
+    this.elevatorIds.push(elevator.getId());
+  }
+
+  onFloorSelected(floorNumber: number) {
+    this.elevatorsService.addNewTask(floorNumber);
   }
 
 }

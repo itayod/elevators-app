@@ -6,6 +6,7 @@ import { ElevatorsComponent } from './elevators/elevators.component';
 import { ElevatorsService } from './services/elevators.service';
 import { ElevatorComponent } from './elevator/elevator.component';
 import { ElevatorTaskComponent } from './elevator-task/elevator-task.component';
+import { FloorsComponent } from './floors/floors.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { ElevatorTaskComponent } from './elevator-task/elevator-task.component';
     ElevatorsComponent,
     ElevatorComponent,
     ElevatorTaskComponent,
+    FloorsComponent,
   ],
   imports: [
     BrowserModule
