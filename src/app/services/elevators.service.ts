@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import ElevatorObj from './elevatorObj';
+import ElevatorObj from '../objects/elevatorObj';
 
 @Injectable()
 export class ElevatorsService {

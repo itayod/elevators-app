@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ElevatorsService} from '../elevators.service';
+import {ElevatorsService} from '../services/elevators.service';
 @Component({
   selector: 'app-elevators',
   templateUrl: './elevators.component.html',

@@ -1,0 +1,25 @@
+/**
+ * Created by itay on 01/07/17.
+ */
+import ElevatorTask from './elevatorTask';
+var task: ElevatorTask;
+const stoppingTime = 2;
+const floorMoveTime = 0.5;
+const sourceFloor = 1;
+const destFloor = 5;
+
+describe('ElevatorObj', () => {
+  beforeEach(() => {
+    task = new ElevatorTask(stoppingTime,floorMoveTime,sourceFloor,destFloor);
+  });
+
+  it('should create new elevator object with stopping time, floor move time, current floor', () => {
+    expect(task).toBeTruthy();
+  });
+
+  it('should calculate the completion time', () => {
+    let completionTime = Math.abs(sourceFloor-destFloor) * floorMoveTime + stoppingTime;
+    expect(task.calculateCompletionTime()).toEqual(completionTime);
+  });
+
+});

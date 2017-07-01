@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { ElevatorsComponent } from './elevators/elevators.component';
-import { ElevatorsService } from './elevators.service';
+import { ElevatorsService } from './services/elevators.service';
 
 @NgModule({
   declarations: [
