@@ -9,6 +9,6 @@ export class ElevatorsService {
   constructor() { }
 
   getElevators() {
-    this._elevators;
+    return this._elevators;
   }
 }

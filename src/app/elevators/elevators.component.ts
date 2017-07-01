@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {ElevatorsService} from './../elevators.service';
+import {ElevatorsService} from '../elevators.service';
 @Component({
   selector: 'app-elevators',
   templateUrl: './elevators.component.html',
-  styleUrls: ['./elevators.component.scss']
+  styleUrls: ['./elevators.component.scss'],
+  providers: [ElevatorsService]
 })
 
 export class ElevatorsComponent implements OnInit {
