@@ -2,15 +2,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { ElevatorsComponent } from './elevators/elevators.component';
+import { ElevatorsService } from './elevators.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ElevatorsComponent
   ],
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [ElevatorsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
