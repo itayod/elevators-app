@@ -36,5 +36,17 @@ export default class ElevatorTask {
     },this._floorMoveTime);
   }
 
+  getCurrentFloor() {
+    return this._currentFloor;
+  }
+
+  getDestFloor()  {
+    return this._destFloor;
+  }
+
+  getSourceFloor() {
+    return this._sourceFloor;
+  }
+
 
 }

@@ -22,4 +22,11 @@ describe('ElevatorObj', () => {
     expect(task.calculateCompletionTime()).toEqual(completionTime);
   });
 
+  it('should update the current floor', () => {
+    task.startTask();
+    setTimeout(()=> {
+      expect(task.getCurrentFloor()).toEqual(sourceFloor+1);
+    },floorMoveTime)
+  });
+
 });

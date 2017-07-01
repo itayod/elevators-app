@@ -11,4 +11,19 @@ export class ElevatorsService {
   getElevators() {
     return this._elevators;
   }
+
+  addElevator(stoppingTime:number,floorMoveTime:number,currentFloor:number) {
+    let elevator = new ElevatorObj(stoppingTime,floorMoveTime,currentFloor);
+    this._elevators.push(elevator);
+  }
+
+  addNewTask() {
+
+  }
+
+  _findElevatorForTask() {
+
+  }
+
+
 }

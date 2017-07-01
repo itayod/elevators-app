@@ -17,6 +17,18 @@ describe('ElevatorObj', () => {
     expect(elevator.getStoppingTime()).toEqual(stoppingTime);
   });
 
+  it('should create a new task', () => {
+    let floorNumber = 5;
+    let task = elevator._createNewTask(floorNumber);
+    expect(task.getSourceFloor()).toEqual(currentFloor);
+    expect(task.getDestFloor()).toEqual(5);
+    floorNumber = 3;
+    elevator.setTasks([task]);
+    let task2 = elevator._createNewTask(floorNumber);
+    expect(task2.getSourceFloor()).toEqual(5);
+    expect(task2.getDestFloor()).toEqual(3);
+  });
+
   it('add new task', () => {
     let floorNumber = 5;
     elevator.addTask(floorNumber);
