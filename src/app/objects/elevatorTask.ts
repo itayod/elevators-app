@@ -11,29 +11,17 @@ export default class ElevatorTask {
   protected _taskEnded: boolean;
   protected _interval: any;
 
-  constructor(stoppingTime,floorMoveTime,sourceFloor,destFloor) {
-    this._stoppingTime = stoppingTime;
-    this._floorMoveTime = floorMoveTime;
+  constructor(stoppingTime,floorMoveTime,sourceFloor,destFloor,startingTime=undefined) {
+    this._stoppingTime = stoppingTime; // in seconds
+    this._floorMoveTime = floorMoveTime; //in seconds
     this._sourceFloor = sourceFloor;
     this._destFloor = destFloor;
     this._currentFloor = sourceFloor;
-  }
-
-  calculateCompletionTime() {
-    return Math.abs(this._currentFloor - this._destFloor) * this._floorMoveTime + this._stoppingTime;
-  }
-
-  startTask() {
-    this._taskStarted = true;
-    this._interval = setInterval(()=> {
-      this._currentFloor++;
-      if(this._currentFloor === this._destFloor) {
-        clearInterval(this._interval);
-        setTimeout(()=> {
-          this._taskEnded = true;
-        },this._stoppingTime)
-      }
-    },this._floorMoveTime);
+    if(startingTime !== undefined) {
+      setTimeout(()=>{
+        this.startTask();
+      },startingTime);
+    }
   }
 
   getCurrentFloor() {
@@ -48,5 +36,39 @@ export default class ElevatorTask {
     return this._sourceFloor;
   }
 
+
+  calculateCompletionTime() {
+    return Math.abs(this._currentFloor - this._destFloor) * this._floorMoveTime + this._stoppingTime;
+  }
+
+  startTask() {
+    console.log('-------task started-------')
+    this._taskStarted = true;
+    this._interval = setInterval(()=> {
+      this.updateCurrentFloor();
+      if(this._currentFloor === this._destFloor) {
+        clearInterval(this._interval);
+        setTimeout(()=> {
+          this._onTaskEnd();
+        },this._stoppingTime * 1000)
+      }
+    },this._floorMoveTime * 1000);
+  }
+
+  updateCurrentFloor() {
+    if(this._currentFloor > this._destFloor) {
+      this._currentFloor--;
+    } else if(this._currentFloor < this._destFloor) {
+      this._currentFloor++;
+    } else {
+      return
+    }
+    console.log('-------current floor: '+this._currentFloor+'-------')
+  }
+
+  _onTaskEnd() {
+    console.log('-------task ended-------')
+    this._taskEnded = true;
+  }
 
 }

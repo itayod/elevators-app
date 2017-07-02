@@ -53,8 +53,8 @@ export default class ElevatorObj {
     if(this._tasks.length > 0) {
       sourceFloor = this._tasks[this._tasks.length - 1].getDestFloor();
     }
-
-    return new ElevatorTask(this._stoppingTime,this._floorMoveTime,sourceFloor,destFloor);
+    var startingTime = this.calculateCompletionTime();
+    return new ElevatorTask(this._stoppingTime,this._floorMoveTime,sourceFloor,destFloor,startingTime);
   }
 
   calculateCompletionTime() {
