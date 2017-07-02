@@ -58,6 +58,16 @@ describe('ElevatorObj', () => {
     expect(elevator.calculateCompletionTimeForPotentialTask(3)).toEqual(completionTime);
   });
 
+  it('should add and remove task', () => {
+    let task = elevator.addTask(5);
+    expect(elevator.getTasks().length).toEqual(1);
+    console.log('aaaaaaa',elevator.getTasks())
+    elevator.endTask(task);
+    expect(elevator.getTasks().length).toEqual(0);
+    console.log('aaaaaaa',elevator.getTasks())
+
+  });
+
 
 
 });

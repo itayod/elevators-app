@@ -1,13 +1,20 @@
 import { Injectable } from '@angular/core';
+import {EventsService} from './../services/events.service';
 import ElevatorObj from '../objects/elevatorObj';
 
 @Injectable()
 export class ElevatorsService {
 
+  protected events: EventsService;
   protected _elevators: ElevatorObj[];
 
-  constructor() {
+  constructor(events: EventsService) {
+    this.events = events;
     this._elevators = [];
+  }
+
+  getEvents() {
+    return this.events;
   }
 
   getElevators() {
@@ -27,7 +34,18 @@ export class ElevatorsService {
 
   addElevator(id:number,stoppingTime:number,floorMoveTime:number,currentFloor:number) {
     let elevator = new ElevatorObj(id,stoppingTime,floorMoveTime,currentFloor);
+    let elevatorEvents = elevator.getEvents();
+    elevatorEvents.on('currentFloorUpdated',(data)=> {
+      this.events.broadcast('elevatorFloorUpdated',data);
+    })
+    elevatorEvents.on('taskAdded',(data)=> {
+      this.events.broadcast('taskAdded',data);
+    })
+    elevatorEvents.on('taskEnded',(data)=> {
+      this.events.broadcast('taskEnded',data);
+    })
     this._elevators.push(elevator);
+    this.events.broadcast('elevatorAdded',elevator);
 
     return elevator;
   }

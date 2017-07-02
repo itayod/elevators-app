@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./elevator.component.scss']
 })
 export class ElevatorComponent implements OnInit {
-  @Input() id: number;
+  @Input() floor: number;
 
   constructor() { }
 

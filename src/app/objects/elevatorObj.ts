@@ -1,6 +1,7 @@
 /**
  * Created by itay on 01/07/17.
  */
+import {EventsService} from './../services/events.service';
 import ElevatorTask from './elevatorTask';
 
 export default class ElevatorObj {
@@ -9,6 +10,8 @@ export default class ElevatorObj {
   protected _currentFloor: number;
   protected _id: number;
   protected _tasks: ElevatorTask[];
+  protected events: EventsService = new EventsService();
+
 
   constructor(id,stoppingTime,floorMoveTime,currentFloor) {
     this._id = id;
@@ -24,6 +27,14 @@ export default class ElevatorObj {
 
   getId() {
     return this._id;
+  }
+
+  getCurrentFloor() {
+    return this._currentFloor;
+  }
+
+  getEvents() {
+    return this.events;
   }
 
   setTasks(tasks: ElevatorTask[]) {
@@ -44,14 +55,23 @@ export default class ElevatorObj {
 
   addTask(floorNumber: number) {
     let task = this._createNewTask(floorNumber);
-    let eventService = task.getEvents();
-    eventService.on('currentFloorUpdated',(floor)=> {
-      console.log('on FloorUpdatated',floor);
-    })
-    eventService.on('taskEnded',(floor)=> {
-      console.log('on taskEnded',floor);
-    })
+    let taskEventService = task.getEvents();
+    taskEventService.on('currentFloorUpdated',this.onCurrentFloorUpdated.bind(this))
+    taskEventService.on('taskEnded',this.onTaskEnded.bind(this));
+    if(this._tasks.length === 0) {
+      task.startTask();
+    }
+
+    this.events.broadcast('taskAdded',{id:this._id,task:task});
     this._tasks.push(task)
+
+    return task;
+  }
+
+  endTask(task: ElevatorTask) {
+    let index = this._tasks.indexOf(task);
+    this.events.broadcast('taskEnded',{id:this._id,taskIdx:index});
+    this._tasks.splice(index,1);
   }
 
   _createNewTask(floorNumber: number) {
@@ -60,7 +80,8 @@ export default class ElevatorObj {
     if(this._tasks.length > 0) {
       sourceFloor = this._tasks[this._tasks.length - 1].getDestFloor();
     }
-    var startingTime = this.calculateCompletionTime();
+    let startingTime = this.calculateCompletionTime();
+
     return new ElevatorTask(this._stoppingTime,this._floorMoveTime,sourceFloor,destFloor,startingTime);
   }
 
@@ -77,6 +98,19 @@ export default class ElevatorObj {
     let task = this._createNewTask(floorNumber);
 
     return this.calculateCompletionTime() + task.calculateCompletionTime();
+  }
+
+  onCurrentFloorUpdated(floor) {
+    this._currentFloor = floor;
+    this.events.broadcast('currentFloorUpdated',{id:this._id,floor:this._currentFloor});
+  }
+
+  onTaskEnded(task) {
+    this.endTask(task);
+    let firstTask = this._tasks.shift();
+    if(firstTask) {
+      firstTask.startTask();
+    };
   }
 
 }

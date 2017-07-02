@@ -9,24 +9,25 @@ export default class ElevatorTask {
   protected _currentFloor: number;
   protected _sourceFloor: number;
   protected _destFloor: number;
+  protected _taskTotalTime: number;
   protected _taskStarted: boolean;
   protected _taskEnded: boolean;
   protected _interval: any;
   protected events: EventsService = new EventsService();
 
-  constructor(stoppingTime,floorMoveTime,sourceFloor,destFloor,startingTime=undefined) {
+  constructor(stoppingTime,floorMoveTime,sourceFloor,destFloor,startingTime) {
     this._stoppingTime = stoppingTime; // in seconds
     this._floorMoveTime = floorMoveTime; //in seconds
     this._sourceFloor = sourceFloor;
     this._destFloor = destFloor;
     this._currentFloor = sourceFloor;
-    if(startingTime !== undefined) {
-      setTimeout(()=>{
-        this.startTask();
-      },startingTime);
-    }
+    this._taskTotalTime = startingTime + this.calculateCompletionTime();
   }
-  
+
+  getTaskTotalTime() {
+    return this._taskTotalTime;
+  }
+
   getEvents() {
     return this.events;
   }

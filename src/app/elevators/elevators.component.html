@@ -2,7 +2,11 @@
   elevators works!
 </p>
 <ul>
-  <li *ngFor="let elevatorId of elevatorIds">
-    <elevator id="{{elevatorId}}"></elevator>
+  <li *ngFor="let elevator of elevatorsJson">
+    <elevator [floor]="elevator.floorNumber"></elevator>
+    <div *ngFor="let task of elevator.tasks">
+      {{task.taskTotalTime}}
+    </div>
+
   </li>
 </ul>
