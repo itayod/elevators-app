@@ -1,3 +1,5 @@
+import {EventsService} from './../services/events.service';
+
 /**
  * Created by itay on 01/07/17.
  */
@@ -10,6 +12,7 @@ export default class ElevatorTask {
   protected _taskStarted: boolean;
   protected _taskEnded: boolean;
   protected _interval: any;
+  protected events: EventsService = new EventsService();
 
   constructor(stoppingTime,floorMoveTime,sourceFloor,destFloor,startingTime=undefined) {
     this._stoppingTime = stoppingTime; // in seconds
@@ -22,6 +25,10 @@ export default class ElevatorTask {
         this.startTask();
       },startingTime);
     }
+  }
+  
+  getEvents() {
+    return this.events;
   }
 
   getCurrentFloor() {
@@ -63,10 +70,12 @@ export default class ElevatorTask {
     } else {
       return
     }
+    this.events.broadcast('currentFloorUpdated',this._currentFloor);
     console.log('-------current floor: '+this._currentFloor+'-------')
   }
 
   _onTaskEnd() {
+    this.events.broadcast('taskEnded',this);
     console.log('-------task ended-------')
     this._taskEnded = true;
   }

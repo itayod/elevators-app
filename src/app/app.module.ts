@@ -1,9 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { ElevatorsService } from './services/elevators.service';
+import { EventsService } from './services/events.service';
+
 import { AppComponent } from './app.component';
 import { ElevatorsComponent } from './elevators/elevators.component';
-import { ElevatorsService } from './services/elevators.service';
 import { ElevatorComponent } from './elevator/elevator.component';
 import { ElevatorTaskComponent } from './elevator-task/elevator-task.component';
 import { FloorsComponent } from './floors/floors.component';
@@ -14,12 +16,12 @@ import { FloorsComponent } from './floors/floors.component';
     ElevatorsComponent,
     ElevatorComponent,
     ElevatorTaskComponent,
-    FloorsComponent,
+    FloorsComponent
   ],
   imports: [
     BrowserModule
   ],
-  providers: [ElevatorsService],
+  providers: [ElevatorsService,EventsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -44,6 +44,13 @@ export default class ElevatorObj {
 
   addTask(floorNumber: number) {
     let task = this._createNewTask(floorNumber);
+    let eventService = task.getEvents();
+    eventService.on('currentFloorUpdated',(floor)=> {
+      console.log('on FloorUpdatated',floor);
+    })
+    eventService.on('taskEnded',(floor)=> {
+      console.log('on taskEnded',floor);
+    })
     this._tasks.push(task)
   }
 
