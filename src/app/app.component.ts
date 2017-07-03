@@ -13,7 +13,6 @@ export class AppComponent {
   protected _defaultCurrentFloor: number = 1;
   protected _defaultTimeBetweenFloors: number = 0.5;
   protected _defaultStoppingTimeAtFloor: number = 2;
-  protected _maxElevatorId: number = 1;
   public elevatorIds: any = [];
   elevatorsService;
 
@@ -22,7 +21,7 @@ export class AppComponent {
   }
 
   addElevator() {
-    let elevator = this.elevatorsService.addElevator(this._maxElevatorId++,this._defaultStoppingTimeAtFloor,this._defaultTimeBetweenFloors,this._defaultCurrentFloor);
+    let elevator = this.elevatorsService.addElevator(this._defaultStoppingTimeAtFloor,this._defaultTimeBetweenFloors,this._defaultCurrentFloor);
     this.elevatorIds.push(elevator.getId());
   }
 

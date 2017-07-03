@@ -5,7 +5,7 @@
   <li *ngFor="let elevator of elevatorsJson">
     <elevator [floor]="elevator.floorNumber"></elevator>
     <div *ngFor="let task of elevator.tasks">
-      {{task.taskTotalTime}}
+      <elevator-task [taskTotalTime]="task.taskTotalTime"></elevator-task>
     </div>
 
   </li>

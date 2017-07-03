@@ -53,8 +53,8 @@ export default class ElevatorObj {
     return this._tasks[this._tasks.length - 1].getDestFloor();
   }
 
-  addTask(floorNumber: number) {
-    let task = this._createNewTask(floorNumber);
+  addTask(floorNumber: number,id:number) {
+    let task = this._createNewTask(floorNumber,id);
     let taskEventService = task.getEvents();
     taskEventService.on('currentFloorUpdated',this.onCurrentFloorUpdated.bind(this))
     taskEventService.on('taskEnded',this.onTaskEnded.bind(this));
@@ -70,11 +70,11 @@ export default class ElevatorObj {
 
   endTask(task: ElevatorTask) {
     let index = this._tasks.indexOf(task);
-    this.events.broadcast('taskEnded',{id:this._id,taskIdx:index});
+    this.events.broadcast('taskEnded',{elevatorId:this._id,taskId:task.getId()});
     this._tasks.splice(index,1);
   }
 
-  _createNewTask(floorNumber: number) {
+  _createNewTask(floorNumber: number,id:number) {
     let sourceFloor = this._currentFloor;
     let destFloor = floorNumber;
     if(this._tasks.length > 0) {
@@ -82,7 +82,7 @@ export default class ElevatorObj {
     }
     let startingTime = this.calculateCompletionTime();
 
-    return new ElevatorTask(this._stoppingTime,this._floorMoveTime,sourceFloor,destFloor,startingTime);
+    return new ElevatorTask(id,this._stoppingTime,this._floorMoveTime,sourceFloor,destFloor,startingTime);
   }
 
   calculateCompletionTime() {
@@ -95,7 +95,7 @@ export default class ElevatorObj {
   }
 
   calculateCompletionTimeForPotentialTask(floorNumber: number) {
-    let task = this._createNewTask(floorNumber);
+    let task = this._createNewTask(floorNumber,1);
 
     return this.calculateCompletionTime() + task.calculateCompletionTime();
   }

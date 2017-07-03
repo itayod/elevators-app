@@ -4,6 +4,7 @@ import {EventsService} from './../services/events.service';
  * Created by itay on 01/07/17.
  */
 export default class ElevatorTask {
+  protected _id: number;
   protected _stoppingTime: number;
   protected _floorMoveTime: number;
   protected _currentFloor: number;
@@ -15,13 +16,18 @@ export default class ElevatorTask {
   protected _interval: any;
   protected events: EventsService = new EventsService();
 
-  constructor(stoppingTime,floorMoveTime,sourceFloor,destFloor,startingTime) {
+  constructor(id,stoppingTime,floorMoveTime,sourceFloor,destFloor,startingTime) {
+    this._id = id; // in seconds
     this._stoppingTime = stoppingTime; // in seconds
     this._floorMoveTime = floorMoveTime; //in seconds
     this._sourceFloor = sourceFloor;
     this._destFloor = destFloor;
     this._currentFloor = sourceFloor;
     this._taskTotalTime = startingTime + this.calculateCompletionTime();
+  }
+
+  getId() {
+    return this._id;
   }
 
   getTaskTotalTime() {
@@ -69,7 +75,7 @@ export default class ElevatorTask {
     } else if(this._currentFloor < this._destFloor) {
       this._currentFloor++;
     } else {
-      return
+      return;
     }
     this.events.broadcast('currentFloorUpdated',this._currentFloor);
     console.log('-------current floor: '+this._currentFloor+'-------')

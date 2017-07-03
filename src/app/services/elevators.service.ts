@@ -7,6 +7,8 @@ export class ElevatorsService {
 
   protected events: EventsService;
   protected _elevators: ElevatorObj[];
+  protected _elevatorIdCounter: number = 1;
+  protected _taskMaxId: number = 1;
 
   constructor(events: EventsService) {
     this.events = events;
@@ -32,8 +34,8 @@ export class ElevatorsService {
     return false;
   }
 
-  addElevator(id:number,stoppingTime:number,floorMoveTime:number,currentFloor:number) {
-    let elevator = new ElevatorObj(id,stoppingTime,floorMoveTime,currentFloor);
+  addElevator(stoppingTime:number,floorMoveTime:number,currentFloor:number) {
+    let elevator = new ElevatorObj(this._elevatorIdCounter++,stoppingTime,floorMoveTime,currentFloor);
     let elevatorEvents = elevator.getEvents();
     elevatorEvents.on('currentFloorUpdated',(data)=> {
       this.events.broadcast('elevatorFloorUpdated',data);
@@ -44,8 +46,9 @@ export class ElevatorsService {
     elevatorEvents.on('taskEnded',(data)=> {
       this.events.broadcast('taskEnded',data);
     })
-    this._elevators.push(elevator);
     this.events.broadcast('elevatorAdded',elevator);
+
+    this._elevators.push(elevator);
 
     return elevator;
   }
@@ -61,7 +64,7 @@ export class ElevatorsService {
       }
     }
 
-    selectedElevator.addTask(floorNumber);
+    selectedElevator.addTask(floorNumber,this._taskMaxId++);
   }
 
 

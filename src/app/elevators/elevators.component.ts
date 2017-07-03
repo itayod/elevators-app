@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {ElevatorsService} from '../services/elevators.service';
 import _ from 'lodash';
 import ElevatorObj from '../objects/elevatorObj';
@@ -30,7 +30,7 @@ export class ElevatorsComponent implements OnInit {
   }
 
   _getElevatorsJson(elevators: ElevatorObj[]) {
-    let elevatorsJson = []
+    let elevatorsJson = [];
     for(var i in elevators) {
       let elevator = this._createElevatorDataObj(elevators[i]);
       elevatorsJson.push(elevator);
@@ -51,14 +51,15 @@ export class ElevatorsComponent implements OnInit {
 
   _createTaskDataObj(taskObj) {
     let taskDataObj = {
+      id: taskObj.getId(),
       taskTotalTime: taskObj.getTaskTotalTime(),
-      tasks: []
+      taskDestFloor: taskObj.getDestFloor()
     }
 
-    return taskDataObj
+    return taskDataObj;
   }
 
-
+  //TODO: move it to the service and use immutable.js for the object.
   onElevatorFloorUpdated(data) {
     let elvatorDataObj = _.find(this.elevatorsJson,{id:data.id});
     elvatorDataObj.floorNumber = data.floor;
@@ -72,17 +73,13 @@ export class ElevatorsComponent implements OnInit {
   onTaskAdded(data) {
     let elvatorDataObj = _.find(this.elevatorsJson,{id:data.id});
     let taskData = this._createTaskDataObj(data.task);
-    let interval = setInterval(() => {
-      taskData.taskTotalTime -= 0.1;
-      taskData.taskTotalTime = taskData.taskTotalTime.toFixed(2);
-      if(taskData.taskTotalTime < 0) {
-        clearInterval(interval);
-      }
-    },100);
     elvatorDataObj.tasks.push(taskData);
   }
 
-  onTaskEnded() {
-
+  onTaskEnded(data) {
+    console.log('task end', data);
+    let elvatorDataObj = _.find(this.elevatorsJson,{id:data.elevatorId});
+    _.remove(elvatorDataObj.tasks,{id:data.taskId})
+    console.log(elvatorDataObj);
   }
 }

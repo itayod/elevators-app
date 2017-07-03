@@ -2,6 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ElevatorsComponent } from './elevators.component';
 import { ElevatorComponent } from './../elevator/elevator.component';
+import { ElevatorTaskComponent } from './../elevator-task/elevator-task.component';
+import {ElevatorsService} from '../services/elevators.service';
+import {EventsService} from '../services/events.service';
 
 describe('ElevatorsComponent', () => {
   let component: ElevatorsComponent;
@@ -9,7 +12,8 @@ describe('ElevatorsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ElevatorsComponent, ElevatorComponent ]
+      declarations: [ ElevatorsComponent, ElevatorComponent,ElevatorTaskComponent ],
+      providers: [ElevatorsService,EventsService]
     })
     .compileComponents();
   }));

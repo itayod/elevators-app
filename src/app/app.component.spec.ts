@@ -6,6 +6,9 @@ import { ElevatorComponent } from './elevator/elevator.component';
 import { ElevatorTaskComponent } from './elevator-task/elevator-task.component';
 import { FloorsComponent } from './floors/floors.component';
 
+import { ElevatorsService } from './services/elevators.service';
+import { EventsService } from './services/events.service';
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -16,6 +19,7 @@ describe('AppComponent', () => {
         ElevatorTaskComponent,
         FloorsComponent
       ],
+      providers: [ElevatorsService,EventsService],
     }).compileComponents();
   }));
 
