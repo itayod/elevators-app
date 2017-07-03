@@ -5,10 +5,10 @@ import {EventsService} from './../services/events.service';
 import ElevatorTask from './elevatorTask';
 
 export default class ElevatorObj {
+  protected _id: number;
   protected _stoppingTime: number;
   protected _floorMoveTime: number;
   protected _currentFloor: number;
-  protected _id: number;
   protected _tasks: ElevatorTask[];
   protected events: EventsService = new EventsService();
 
