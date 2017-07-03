@@ -1,12 +1,11 @@
-<p>
-  elevators works!
-</p>
-<ul>
-  <li *ngFor="let elevator of elevatorsJson">
-    <elevator [floor]="elevator.floorNumber"></elevator>
-    <div *ngFor="let task of elevator.tasks">
-      <elevator-task [taskTotalTime]="task.taskTotalTime"></elevator-task>
-    </div>
+<div id="elevator-elevators">
+  <ul>
+    <li class='elevator-list' *ngFor="let elevator of elevatorsJson">
+      <elevator [id]="elevator.floorNumber" [floor]="elevator.floorNumber"></elevator>
+      <div *ngFor="let task of elevator.tasks">
+        <elevator-task [taskTotalTime]="task.taskTotalTime"></elevator-task>
+      </div>
 
-  </li>
-</ul>
+    </li>
+  </ul>
+</div>
