@@ -1,4 +1,5 @@
 import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
+import AppConstants from './../constants';
 
 @Component({
   selector: 'app-floors',
@@ -18,6 +19,19 @@ export class FloorsComponent implements OnInit {
     this.floors = this._createFloors(this.minFloor,this.maxFloor);
     console.log(this.floors)
   }
+
+  ngAfterViewInit() {
+
+    let floorElements = document.getElementsByClassName("floor");
+    for(var i in floorElements) {
+      // floorElements[i].style.height = AppConstants.FLOOR_SIZE_IN_PX + 'px';
+    }
+  }
+
+  getFloorHeight() {
+    return AppConstants.FLOOR_SIZE_IN_PX + 'px'
+  }
+
 
   selectFloor(floor) {
     this.floorSelected.emit(floor)

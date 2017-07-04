@@ -1,7 +1,19 @@
-#elevator-elevators {
-  li.elevator-list {
-    list-style: none;
+
+  #elevator-elevators {
     float: left;
-    position: absolute;
+    display: block;
+    position: relative;
+    //border: solid;
+    width: 80%;
+    ul {
+      margin: 0;
+      display: block;
+      height: 100%;
+      position: relative;
+    }
+    li.elevator-list {
+      list-style: none;
+      float: left;
+    }
+
   }
-}

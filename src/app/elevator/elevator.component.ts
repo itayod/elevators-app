@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import AppConstants from './../constants';
 
 @Component({
   selector: 'elevator',
@@ -25,7 +26,7 @@ export class ElevatorComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['floor']) {
       if(this.element) {
-        this.element.style.top = this.floor * 20 + 'px';
+        this.element.style.top = this.floor * AppConstants.FLOOR_SIZE_IN_PX + 'px';
       }
     }
   }

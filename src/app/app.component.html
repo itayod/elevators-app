@@ -4,9 +4,9 @@
     Welcome to {{title}}!!
   </h1>
   <div id="elevator-app">
+    <app-floors (floorSelected)="onFloorSelected($event)"></app-floors>
     <elevators>
     </elevators>
-    <app-floors (floorSelected)="onFloorSelected($event)"></app-floors>
     <button id="add-elevator-button" (click)="addElevator()" >addElevator</button>
   </div>
 

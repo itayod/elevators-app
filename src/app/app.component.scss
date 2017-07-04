@@ -1,7 +1,9 @@
 div#elevator-app {
   border: solid;
   left: 50%;
-  position: absolute;
+  position: relative;
+  -webkit-transform: translate(-50%);
   transform: translate(-50%);
   padding: 10px;
+  width: 800px;
 }

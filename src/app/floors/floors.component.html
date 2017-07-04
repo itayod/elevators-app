@@ -1,3 +1,5 @@
-<div *ngFor="let floor of floors">
-  <button (click)="selectFloor(floor)">{{floor}}</button>
+<div id="elevator-floors">
+  <div *ngFor="let floor of floors">
+    <button (click)="selectFloor(floor)" [ngStyle]="{'height':getFloorHeight()}">{{floor}}</button>
+  </div>
 </div>
