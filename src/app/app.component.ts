@@ -10,7 +10,7 @@ import {ElevatorsService} from './services/elevators.service';
 
 export class AppComponent {
   public title = 'Elevators App';
-  protected _defaultCurrentFloor: number = 1;
+  protected _defaultCurrentFloor: number = 0;
   protected _defaultTimeBetweenFloors: number = 0.5;
   protected _defaultStoppingTimeAtFloor: number = 2;
   public elevatorIds: any = [];

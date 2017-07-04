@@ -1,7 +1,7 @@
 <div id="elevator-elevators">
   <ul>
     <li class='elevator-list' *ngFor="let elevator of elevatorsJson">
-      <elevator [id]="elevator.floorNumber" [floor]="elevator.floorNumber"></elevator>
+      <elevator [id]="elevator.id" [floor]="elevator.floorNumber"></elevator>
       <div *ngFor="let task of elevator.tasks">
         <elevator-task [taskTotalTime]="task.taskTotalTime"></elevator-task>
       </div>

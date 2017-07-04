@@ -14,7 +14,7 @@ export class ElevatorComponent implements OnInit {
   element: any;
 
   constructor() { }
-
+  
   ngOnInit() {
     this.elementId = 'elevator-' + this.id;
   }
@@ -26,7 +26,7 @@ export class ElevatorComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['floor']) {
       if(this.element) {
-        this.element.style.top = this.floor * AppConstants.FLOOR_SIZE_IN_PX + 'px';
+        this.element.style.top = this.floor * (AppConstants.FLOOR_SIZE_IN_PX + AppConstants.FLOOR_MARGIN_IN_PX) + 'px';
       }
     }
   }
