@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {ElevatorsService} from '../services/elevators.service';
 
 import { FloorsComponent } from './floors.component';
 
@@ -8,7 +9,8 @@ describe('FloorsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FloorsComponent ]
+      declarations: [ FloorsComponent ],
+      providers: [ElevatorsService]
     })
     .compileComponents();
   }));

@@ -49,13 +49,18 @@ export class ElevatorsService {
       this.onElevatorFloorUpdated(data);
       this.events.broadcast('elevatorsChanged',this._elevatorsJson);
     })
+    elevatorEvents.on('taskArrivedToDest',(data)=> {
+      this.events.broadcast('taskArrivedToDest');
+    })
     elevatorEvents.on('taskAdded',(data)=> {
       this.onTaskAdded(data);
       this.events.broadcast('elevatorsChanged',this._elevatorsJson);
+      this.events.broadcast('taskAdded',data);
     })
     elevatorEvents.on('taskEnded',(data)=> {
       this.onTaskEnded(data);
       this.events.broadcast('elevatorsChanged',this._elevatorsJson);
+      this.events.broadcast('taskEnded',data);
     })
 
     this._elevators.push(elevator);
@@ -114,15 +119,15 @@ export class ElevatorsService {
   }
 
   onTaskAdded(data) {
-    let elvatorDataObj = _.find(this._elevatorsJson,{id:data.id});
+    let elvatorDataObj = _.find(this._elevatorsJson,{id:data.elevator.getId()});
     let taskData = this._createTaskDataObj(data.task);
     elvatorDataObj.tasks.push(taskData);
   }
 
   onTaskEnded(data) {
     console.log('task end', data);
-    let elvatorDataObj = _.find(this._elevatorsJson,{id:data.elevatorId});
-    _.remove(elvatorDataObj.tasks,{id:data.taskId})
+    let elvatorDataObj = _.find(this._elevatorsJson,{id:data.elevator.getId()});
+    _.remove(elvatorDataObj.tasks,{id:data.task.getId()})
     console.log(elvatorDataObj);
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ElevatorsService} from '../services/elevators.service';
 import ElevatorObj from '../objects/elevatorObj';
+import AppConstants from '../constants';
 
 @Component({
   selector: 'elevators',
@@ -17,6 +18,7 @@ export class ElevatorsComponent implements OnInit {
   constructor(protected elevatorsService: ElevatorsService) {
     this.elevatorsServiceEvents = elevatorsService.getEvents();
     this.elevatorsServiceEvents.on('elevatorsChanged',this.onElevatorsChanged.bind(this))
+    this.elevatorsServiceEvents.on('taskArrivedToDest',this.onTaskArrivedToDest.bind(this))
   }
 
   ngOnInit() {
@@ -25,6 +27,16 @@ export class ElevatorsComponent implements OnInit {
 
   onElevatorsChanged(elvatorsJson) {
     this.elevatorsJson = elvatorsJson;
+  }
+
+  onTaskArrivedToDest() {
+    this._playDing();
+    console.log('a')
+  }
+
+  _playDing() {
+    let audio = new Audio(AppConstants.ASSETS_URL+'ding.mp3');
+    audio.play();
   }
 
 }

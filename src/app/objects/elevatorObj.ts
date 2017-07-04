@@ -58,11 +58,13 @@ export default class ElevatorObj {
     let taskEventService = task.getEvents();
     taskEventService.on('currentFloorUpdated',this.onCurrentFloorUpdated.bind(this))
     taskEventService.on('taskEnded',this.onTaskEnded.bind(this));
+    taskEventService.on('taskArrivedToDest',this.onTaskArrivedToDest.bind(this));
+
     if(this._tasks.length === 0) {
       task.startTask();
     }
 
-    this.events.broadcast('taskAdded',{id:this._id,task:task});
+    this.events.broadcast('taskAdded',{elevator:this,task:task});
     this._tasks.push(task)
 
     return task;
@@ -70,7 +72,7 @@ export default class ElevatorObj {
 
   endTask(task: ElevatorTask) {
     let index = this._tasks.indexOf(task);
-    this.events.broadcast('taskEnded',{elevatorId:this._id,taskId:task.getId()});
+    this.events.broadcast('taskEnded',{elevator:this,task:task});
     this._tasks.splice(index,1);
   }
 
@@ -103,6 +105,10 @@ export default class ElevatorObj {
   onCurrentFloorUpdated(floor) {
     this._currentFloor = floor;
     this.events.broadcast('currentFloorUpdated',{id:this._id,floor:this._currentFloor});
+  }
+
+  onTaskArrivedToDest() {
+    this.events.broadcast('taskArrivedToDest');
   }
 
   onTaskEnded(task) {

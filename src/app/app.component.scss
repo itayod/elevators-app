@@ -1,9 +1,13 @@
 div#elevator-app {
-  border: solid;
   left: 50%;
   position: relative;
   -webkit-transform: translate(-50%);
   transform: translate(-50%);
   padding: 10px;
   width: 800px;
+  button#add-elevator-button {
+    float: left;
+    position: absolute;
+    left: -100px;
+  }
 }

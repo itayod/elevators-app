@@ -4,10 +4,10 @@
     Welcome to {{title}}!!
   </h1>
   <div id="elevator-app">
+    <button id="add-elevator-button" (click)="addElevator()" >addElevator</button>
     <app-floors (floorSelected)="onFloorSelected($event)"></app-floors>
     <elevators>
     </elevators>
-    <button id="add-elevator-button" (click)="addElevator()" >addElevator</button>
   </div>
 
 </div>

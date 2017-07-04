@@ -62,6 +62,7 @@ export default class ElevatorTask {
       this.updateCurrentFloor();
       if(this._currentFloor === this._destFloor) {
         clearInterval(this._interval);
+        this.events.broadcast('taskArrivedToDest');
         setTimeout(()=> {
           this._onTaskEnd();
         },this._stoppingTime * 1000)
