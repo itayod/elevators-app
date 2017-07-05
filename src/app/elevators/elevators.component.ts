@@ -31,7 +31,6 @@ export class ElevatorsComponent implements OnInit {
 
   onTaskArrivedToDest() {
     this._playDing();
-    console.log('a')
   }
 
   _playDing() {

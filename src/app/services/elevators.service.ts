@@ -128,7 +128,6 @@ export class ElevatorsService {
     console.log('task end', data);
     let elvatorDataObj = _.find(this._elevatorsJson,{id:data.elevator.getId()});
     _.remove(elvatorDataObj.tasks,{id:data.task.getId()})
-    console.log(elvatorDataObj);
   }
 
 }

@@ -25,7 +25,6 @@ export class FloorsComponent implements OnInit {
 
   ngOnInit() {
     this.floors = this._createFloors(this.minFloor,this.maxFloor);
-    console.log(this.floors)
   }
 
   getFloorHeight() {
@@ -42,9 +41,10 @@ export class FloorsComponent implements OnInit {
     floor.active = false;
   }
 
-
   selectFloor(floor) {
-    this.floorSelected.emit(floor.number)
+    if(!floor.active) {
+      this.floorSelected.emit(floor.number)
+    }
   }
 
   _createFloors(min,max) {

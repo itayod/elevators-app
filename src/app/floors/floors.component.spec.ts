@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import {ElevatorsService} from '../services/elevators.service';
 
 import { FloorsComponent } from './floors.component';
+import {EventsService} from "../services/events.service";
 
 describe('FloorsComponent', () => {
   let component: FloorsComponent;
@@ -10,7 +11,7 @@ describe('FloorsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ FloorsComponent ],
-      providers: [ElevatorsService]
+      providers: [ElevatorsService,EventsService]
     })
     .compileComponents();
   }));

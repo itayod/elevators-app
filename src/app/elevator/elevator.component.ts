@@ -10,7 +10,7 @@ export class ElevatorComponent implements OnInit {
 
   @Input() floor: number;
   @Input() id: number;
-  @Input() elementId: string;
+  public elementId: string;
   element: any;
 
   constructor() { }
