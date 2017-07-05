@@ -1,6 +1,16 @@
 # Elevators
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.0.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.0
+
+Node version: 8.0.0.
+
+## Instalation:
+  `$ git clone https://github.com/itayod/elevators-app.git`.
+  
+  `$ cd elevators-app`.
+  
+  `$ npm i`.
+  
 
 ## Development server
 
